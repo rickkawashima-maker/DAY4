@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - 支出管理</title>
+    <meta name="description" content="日々の支出をスマートに管理するアプリケーション">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-wallet"></i>
+                <h1>Expense Tracker</h1>
+            </div>
+            <p class="subtitle">日々の支出をスマートに記録</p>
+        </header>
+
+        <main class="app-main">
+            <!-- 入力フォームセクション -->
+            <section class="input-section card">
+                <h2><i class="fa-solid fa-pen-to-square"></i> 新しい支出を記録</h2>
+                <form id="expense-form">
+                    <div class="form-group">
+                        <label for="date">日付</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">カテゴリ</label>
+                        <div class="select-wrapper">
+                            <select id="category" required>
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="食費">食費</option>
+                                <option value="交通費">交通費</option>
+                                <option value="日用品">日用品</option>
+                                <option value="娯楽費">娯楽費</option>
+                                <option value="住居費">住居費</option>
+                                <option value="その他">その他</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">金額 (円)</label>
+                        <input type="number" id="amount" placeholder="例: 1000" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memo">メモ</label>
+                        <input type="text" id="memo" placeholder="例: ランチ">
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i> 追加する
+                    </button>
+                </form>
+            </section>
+
+            <!-- 集計・リストセクション -->
+            <div class="dashboard-grid">
+                <!-- カテゴリ別集計 -->
+                <section class="summary-section card">
+                    <h2><i class="fa-solid fa-chart-pie"></i> カテゴリ別集計</h2>
+                    <div class="total-amount">
+                        <span class="label">総支出</span>
+                        <span class="value" id="total-amount">¥0</span>
+                    </div>
+                    <div id="category-summary" class="category-list">
+                        <!-- JSで動的に生成 -->
+                    </div>
+                </section>
+
+                <!-- 支出一覧 -->
+                <section class="list-section card">
+                    <div class="section-header">
+                        <h2><i class="fa-solid fa-list"></i> 支出一覧</h2>
+                        <button id="export-btn" class="btn-secondary" title="Spreadsheetへ同期">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> 同期
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="expense-table">
+                            <thead>
+                                <tr>
+                                    <th>日付</th>
+                                    <th>カテゴリ</th>
+                                    <th>内容</th>
+                                    <th>金額</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expense-list">
+                                <!-- JSで動的に生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="empty-state" class="empty-state hidden">
+                        <i class="fa-solid fa-receipt"></i>
+                        <p>まだ記録がありません</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
